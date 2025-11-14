@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="mb-4">
+  <a href="/" class="btn btn-outline-secondary btn-sm">← Back to Problems</a>
+</div>
+
+<h1>{{ problem.title }}</h1>
+<div class="alert alert-light border">
+  {{ problem.description|linebreaks }}
+</div>
+
+{% if hint %}
+  <div class="alert alert-warning border border-warning" role="alert">
+    <h5 class="alert-heading">💡 AI-Generated Hint</h5>
+    <p class="mb-0">{{ hint }}</p>
+  </div>
+{% endif %}
+
+<div class="row mt-4">
+  <div class="col-lg-6">
+    <h3>📝 Starter Code</h3>
+    <pre class="mb-0"><code>{{ problem.starter_code }}</code></pre>
+  </div>
+  <div class="col-lg-6">
+    <h3>✏️ Your Solution</h3>
+    {% if user.is_authenticated %}
+      <form method="post" class="mb-0">
+        {% csrf_token %}
+        <div class="mb-3">
+          {{ form.code }}
+        </div>
+        <button type="submit" class="btn btn-submit w-100">▶️ Run Tests</button>
+      </form>
+    {% else %}
+      <div class="alert alert-info" role="alert">
+        <p>Please <a href="/accounts/login/">login</a> to submit your solution.</p>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

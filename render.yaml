@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: codejudge
+    env: python
+    buildCommand: "pip install -r requirements.txt && python manage.py collectstatic --noinput"
+    startCommand: "gunicorn codejudge.wsgi:application"
+    staticPublishPath: staticfiles

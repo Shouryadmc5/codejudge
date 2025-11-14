@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="mb-4">
+  <a href="{% url 'judge:problem_detail' slug=sub.problem.slug %}" class="btn btn-outline-secondary btn-sm">← Back to Problem</a>
+</div>
+
+<h1>🧠 Submission Results</h1>
+
+<div class="row mb-4">
+  <div class="col-md-6">
+    <div class="card border-light">
+      <div class="card-body">
+        <h5 class="card-title">Problem</h5>
+        <p class="card-text">
+          <a href="{% url 'judge:problem_detail' slug=sub.problem.slug %}" style="color: #2563eb; font-weight: 600; text-decoration: none;">{{ sub.problem.title }}</a>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card border-light">
+      <div class="card-body">
+        <h5 class="card-title">Status</h5>
+        <p class="card-text">
+          {% if sub.passed %}
+            <span class="badge badge-passed">✓ PASSED</span>
+          {% else %}
+            <span class="badge badge-failed">✗ FAILED</span>
+          {% endif %}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3>📋 Test Output</h3>
+<pre><code>{{ sub.output }}</code></pre>
+
+<h3>💻 Your Code</h3>
+<pre><code class="language-python">{{ sub.code }}</code></pre>
+
+<div class="mt-4">
+  <a href="/" class="btn btn-primary">← Try Another Problem</a>
+  <a href="{% url 'judge:problem_detail' slug=sub.problem.slug %}" class="btn btn-outline-primary">Edit & Resubmit</a>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>📚 Coding Problems</h1>
+<p class="text-muted mb-4">Solve these coding challenges to improve your programming skills</p>
+
+{% if problems %}
+  <div class="row g-4">
+    {% for p in problems %}
+      <div class="col-md-6 col-lg-4">
+        <div class="card problem-card h-100">
+          <div class="card-body">
+            <h5 class="card-title">{{ p.title }}</h5>
+            <p class="card-text text-muted">{{ p.description|truncatewords:15 }}</p>
+            <a href="{% url 'judge:problem_detail' slug=p.slug %}" class="btn btn-sm" style="background-color: #2563eb; color: white; text-decoration: none;">
+              Start Solving →
+            </a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="alert alert-info" role="alert">
+    <strong>No problems yet.</strong> Check back soon!
+  </div>
+{% endif %}
+{% endblock %}
